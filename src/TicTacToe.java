@@ -1,14 +1,23 @@
+import java.util.Scanner;
+
 public class TicTacToe {
     public static void main(String[] args) {
-        int size = 3;
-        char[][] board = {  {'O', 'X', 'X'},
-                            {'O', 'X', ' '},
-                            {' ', 'O', 'O'}};
+        //Welcome player
+        System.out.println("Witaj w grze! \nPodaj rozmiar planszy");
+
+        //Choose board size
+        Scanner scanner = new Scanner(System.in);
+        int size = scanner.nextInt();
+
+        //Create an array of chars
+        char[][] board = new char[size][size];
+
         TicTacToe.printBoard(board);
     }
 
     public static void printBoard(char[][] board) {
         int size = board.length;
+
         //Column headers
         System.out.print("\t");
 
@@ -17,8 +26,8 @@ public class TicTacToe {
             System.out.print(i + "\t");
         }
         System.out.println();
-        //Print rows
 
+        //Print rows
         for (int row = 0; row < board.length; row++) {
             System.out.print(row + ":\t");
             for (int column = 0; column < board[row].length; column++) {
@@ -26,7 +35,5 @@ public class TicTacToe {
             }
             System.out.println();
         }
-
     }
-
 }
