@@ -9,10 +9,31 @@ public class TicTacToe {
         Scanner scanner = new Scanner(System.in);
         int size = scanner.nextInt();
 
+        char currentPlayer = 'X';
+
         //Create an array of chars
         char[][] board = new char[size][size];
 
-        TicTacToe.printBoard(board);
+
+        while (true) {
+            TicTacToe.printBoard(board);
+            System.out.println(currentPlayer + " Twój ruch.");
+            System.out.println("Podaj indeks wiersza");
+            Scanner chooseRow = new Scanner(System.in);
+            int row = chooseRow.nextInt();
+
+            System.out.println("Podaj indeks kolumny");
+            Scanner chooseColumn = new Scanner(System.in);
+            int column = chooseColumn.nextInt();
+            board[row][column] = currentPlayer;
+            TicTacToe.printBoard(board);
+
+            if (currentPlayer == 'X') {
+                currentPlayer = 'O';
+            } else {
+                currentPlayer = 'X';
+            }
+        }
     }
 
     public static void printBoard(char[][] board) {
