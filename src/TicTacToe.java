@@ -17,23 +17,40 @@ public class TicTacToe {
 
         while (true) {
             TicTacToe.printBoard(board);
-            System.out.println(currentPlayer + " Twój ruch.");
-            System.out.println("Podaj indeks wiersza");
-            Scanner chooseRow = new Scanner(System.in);
-            int row = chooseRow.nextInt();
 
-            System.out.println("Podaj indeks kolumny");
-            Scanner chooseColumn = new Scanner(System.in);
-            int column = chooseColumn.nextInt();
-            board[row][column] = currentPlayer;
-            TicTacToe.printBoard(board);
+            //Implements move method
+            boolean correctMove = move(board, currentPlayer);
+            if (!correctMove) continue;
 
+            //Switch player
             if (currentPlayer == 'X') {
                 currentPlayer = 'O';
             } else {
                 currentPlayer = 'X';
             }
         }
+    }
+
+    public static boolean move(char[][] board, char Player) {
+        System.out.println(Player + " Twój ruch.");
+
+        System.out.println("Podaj indeks wiersza");
+        Scanner chooseRow = new Scanner(System.in);
+        int row = chooseRow.nextInt();
+
+        System.out.println("Podaj indeks kolumny");
+        Scanner chooseColumn = new Scanner(System.in);
+        int column = chooseColumn.nextInt();
+
+        //Check correct move
+        boolean correctMove = board[row][column] == 0;
+        if (!correctMove) {
+            System.out.println("Ruch niepoprawny");
+            return false;
+        }
+        //Player move
+        board[row][column] = Player;
+        return true;
     }
 
     public static void printBoard(char[][] board) {
