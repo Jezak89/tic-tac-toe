@@ -14,22 +14,88 @@ public class TicTacToe {
         //Create an array of chars
         char[][] board = new char[size][size];
 
+        boolean gameContinue = true;
+        int moveCounter = 0;
 
-        while (true) {
+        while (gameContinue && moveCounter <= size * size) {
             TicTacToe.printBoard(board);
 
             //Implements move method
             boolean correctMove = move(board, currentPlayer);
-            if (!correctMove) continue;
+            if (correctMove) {
+                boolean winInRows = checkRows(board, currentPlayer);
+                boolean winInColumn = checkColumn(board, currentPlayer);
+                boolean winInCrossOne = checkCrossOne(board, currentPlayer);
+                boolean winCrossTwo = checkCrossTwo(board, currentPlayer);
+                if (winInRows || winInColumn || winInCrossOne || winCrossTwo) {
+                    System.out.println("Gratulacje " + currentPlayer + " wygrał!");
+                    gameContinue = false;
+                }
 
-            //Switch player
-            if (currentPlayer == 'X') {
-                currentPlayer = 'O';
-            } else {
-                currentPlayer = 'X';
+                //Switch player
+                if (currentPlayer == 'X') {
+                    currentPlayer = 'O';
+                } else {
+                    currentPlayer = 'X';
+                }
             }
         }
     }
+
+    private static boolean checkRows(char[][] board, char currentPlayer) {
+        int size = board.length;
+        for (int row = 0; row < size; row++) {
+            boolean win = true;
+            for (int column = 0; column < size; column++) {
+                if (board[row][column] != currentPlayer) {
+                    win = false;
+                    break;
+                }
+            }
+            if (win) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkColumn(char[][] board, char currentPlayer) {
+        int size = board.length;
+        for (int column = 0; column < size; column++) {
+            boolean win = true;
+            for (int row = 0; row < size; row++) {
+                if (board[row][column] != currentPlayer) {
+                    win = false;
+                    break;
+                }
+            }
+            if (win) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkCrossOne(char[][] board, char currentPlayer) {
+        int size = board.length;
+        for (int i = 0; i < size; i++) {
+            if (board[i][i] != currentPlayer) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean checkCrossTwo(char[][] board, char currentPlayer) {
+        int size = board.length;
+        for (int i = 0; i < size; i++) {
+            if (board[i][i] != currentPlayer) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static boolean move(char[][] board, char Player) {
         System.out.println(Player + " Twój ruch.");
